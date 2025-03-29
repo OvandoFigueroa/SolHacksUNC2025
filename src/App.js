@@ -6,6 +6,7 @@ import LoginPage from './LoginPage';
 import MessageboardPage from './MessageboardPage';
 import PrivatechatPage from './PrivatechatPage';
 import ChatbotPage from './ChatbotPage';
+import CreateAccountWrapper from './CreateAccountWrapper';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/Messageboard" element={<MessageboardPage />} />
         <Route path="/Privatechat" element={<PrivatechatPage />} />
         <Route path="/Chatbot" element={<ChatbotPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/create-account" element={<CreateAccountWrapper />} />
       </Routes>
     </Router>
   );
