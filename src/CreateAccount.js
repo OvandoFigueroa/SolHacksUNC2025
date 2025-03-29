@@ -183,7 +183,7 @@ class CreateAccount extends Component {
               href: '#', 
               onClick: (e) => {
                 e.preventDefault();
-                this.props.navigate('/login');
+                this.props.navigate('/');
               } 
             }, 'Log in')
           )
