@@ -1,11 +1,11 @@
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./HomePage";
-import Organizations from "./OrganizationsPage";
-import Login from "./LoginPage";
-import Messageboard from "./MessageboardPage";
-import Privatechat from "./PrivatechatPage";
-import Chatbot from "./ChatbotPage";
+import HomePage from './HomePage';
+import OrganizationsPage from './OrganizationsPage';
+import LoginPage from './LoginPage';
+import MessageboardPage from './MessageboardPage';
+import PrivatechatPage from './PrivatechatPage';
+import ChatbotPage from './ChatbotPage';
 
 function App() {
   return (

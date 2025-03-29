@@ -1,3 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Homepage.css";
+import "./HomePage.css";
+
+function HomePage () {
+    
+}
