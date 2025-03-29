@@ -112,7 +112,7 @@ export default function HomePage() {
                   className={person.isFollowed ? "unfollow-btn" : "follow-btn"}
                   onClick={() => handleFollowToggle(person.id)}
                 >
-                  {person.isFollowed ? "Unfollow" : "Follow"}
+                  {person.isFollowed ? "Following" : "Follow"}
                 </button>
               </div>
             ))}
@@ -120,7 +120,7 @@ export default function HomePage() {
         )}
 
         {activeTab === "mynetwork" && (
-          <div className="my-network">
+          <div className="people-to-network">
             <h2>My Network</h2>
             {peopleToNetwork
               .filter((person) => person.isFollowed)
@@ -132,7 +132,7 @@ export default function HomePage() {
                     className={person.isFollowed ? "unfollow-btn" : "follow-btn"}
                     onClick={() => handleFollowToggle(person.id)}
                   >
-                    Unfollow
+                    {person.isFollowed ? "Following" : "Follow"}
                   </button>
                 </div>
               ))}

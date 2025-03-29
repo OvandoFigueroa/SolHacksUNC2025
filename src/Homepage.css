@@ -159,10 +159,9 @@ p {
 }
 
 .unfollow-btn {
-  background-color: #dc3545; /* Red */
-  color: white;
+  background-color: #f3e7af; /* Red */
   padding: 0.5rem 1rem;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -171,7 +170,7 @@ p {
 }
 
 .follow-btn:hover, .chat-btn:hover {
-  background-color: #0056b3;
+  background-color: #f6feb6;
 }
 
 /* People to Network Section */
@@ -198,10 +197,6 @@ p {
 .follow-btn {
   margin-top: 1rem;
   background-color: #ff9800;
-}
-
-.follow-btn:hover {
-  background-color: #218838;
 }
 
 /* Styling for Chat Button */
