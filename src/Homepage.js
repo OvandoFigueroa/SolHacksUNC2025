@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
-const latinoClubs = [
+
+const collegeClubs = {
+  "UNC": [
   { 
     id: 1, 
     name: "Hispanic Latino Law Student Association", 
@@ -31,7 +33,7 @@ const latinoClubs = [
     id: 5, 
     name: "Campus Y: Sanaa & Soul", 
     description: "UNC Student members of Sanaa & Soul help with an after-school program that brings diverse art to Durham students. They introduce them to Black, Latiné, and Indigenous artists to help them explore culture, creativity, and their own identities.",
-    link: "hhttps://www.instagram.com/sanaa.soul/" 
+    link: "https://www.instagram.com/sanaa.soul/" 
   },
   { 
     id: 6, 
@@ -39,7 +41,28 @@ const latinoClubs = [
     description: "Mi Pueblo seeks to sponsor awareness around Latinx issues, culture, and heritage at UNC and the surrounding community, as well as provide a supportive and welcoming environment for all students.",
     link: "https://www.instagram.com/mipueblounc/" 
   },
-];
+],
+"Clemson": [
+  { 
+    id: 1, 
+    name: "Alpfa", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
+  { 
+    id: 2, 
+    name: "SHPE", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
+],
+};
+
+const getClubsForCollege = () => {
+  const college = currentUser?.college || "UNC"; // Default to UNC if no college
+  return collegeClubs[college] || collegeClubs["UNC"]; // Fallback to UNC
+};
+
 
 const initialPosts = [
   { id: 1, content: "0 code hackathon", school: "Kenan Flagler" },
@@ -174,7 +197,7 @@ export default function HomePage() {
           </div>
         )}
 
-{activeTab === "mynetwork" && (
+      {activeTab === "mynetwork" && (
           <div className="people-to-network">
             <h2>My Network</h2>
             {peopleToNetwork
@@ -193,28 +216,28 @@ export default function HomePage() {
               ))}
           </div>
         )}
-{activeTab === "latino-clubs" && (
-          <div className="latino-clubs">
-            <h2>UNC Latino Clubs & Organizations</h2>
-            <div className="clubs-container">
-              {latinoClubs.map((club) => (
-                <div key={club.id} className="club-card">
-                  <h3>{club.name}</h3>
-                  <p>{club.description}</p>
-                  <a 
-                    href={club.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="club-link"
-                  >
-                    Visit Instagram
-                  </a>
-                </div>
-              ))}
-            </div>
+      {activeTab === "latino-clubs" && (
+        <div className="latino-clubs">
+          <h2>{currentUser?.college || "UNC"} Latino Clubs & Organizations</h2>
+          <div className="clubs-container">
+            {getClubsForCollege().map((club) => (
+              <div key={club.id} className="club-card">
+                <h3>{club.name}</h3>
+                <p>{club.description}</p>
+                <a 
+                  href={club.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="club-link"
+                >
+                  Visit Instagram
+                </a>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
 
       {/* Profile Section */}
       <div className="profile">

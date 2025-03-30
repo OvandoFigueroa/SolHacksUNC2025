@@ -36,14 +36,11 @@ class CreateAccount extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.validate()) {
-      // Store user data in localStorage
       const userData = {
         username: this.state.input.username,
-        college: this.state.input.college,
+        college: this.state.input.college, // Make sure this is being saved
         grade: this.state.input.grade,
         major: this.state.input.major,
-        // Note: In a real app, never store passwords in localStorage
-        // This is just for demonstration
         password: this.state.input.password
       };
       
