@@ -1,13 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
-// Sample Data
-const userProfile = {
-  name: "John Doe",
-  bio: "Tech enthusiast and avid networker.",
-  profilePic: "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg",
+
+const collegeClubs = {
+  "UNC": [
+  { 
+    id: 1, 
+    name: "Hispanic Latino Law Student Association", 
+    description: "They aim to enhance the legal careers of its members, increase Hispanic-Latino representation, and serve the the Hispanic Latino community of the Research Triangle Area. ",
+    link: "https://www.instagram.com/unc_hllsa/?igshid=bHJ6b3FuNnM3eTly&utm_source=qr" 
+  },
+  { 
+    id: 2, 
+    name: "Latino Medical Student Association", 
+    description: "Construct a community between undergraduate students, medical students and physicians interested in Latino health and further the recruitment and retention of underrepresented students in medicine",
+    link: "https://www.instagram.com/unc_lmsa/" 
+  },
+  { 
+    id: 3, 
+    name: "The Association of Latino Professionals For America", 
+    description: "They aim to provide students of all nationalities a greater connection to Latinx professionals by offering a large pool of networking opportunities and extensive partnerships with big companies recruiting Tar Heel talent.",
+    link: "https://www.instagram.com/alpfaunc_ch/" 
+  },
+  { 
+    id: 4, 
+    name: "Latinos in Tech", 
+    description: "Latinos in Tech is a SHPE Chapter at UNC-Chapel Hill that intends to serve as a support system for Hispanic/Latino students interested in technology-related fields including computer science, data science, and information science.",
+    link: "https://www.instagram.com/unc.latinosintech/" 
+  },
+  { 
+    id: 5, 
+    name: "Campus Y: Sanaa & Soul", 
+    description: "UNC Student members of Sanaa & Soul help with an after-school program that brings diverse art to Durham students. They introduce them to Black, Latiné, and Indigenous artists to help them explore culture, creativity, and their own identities.",
+    link: "https://www.instagram.com/sanaa.soul/" 
+  },
+  { 
+    id: 6, 
+    name: "Mi Pueblo", 
+    description: "Mi Pueblo seeks to sponsor awareness around Latinx issues, culture, and heritage at UNC and the surrounding community, as well as provide a supportive and welcoming environment for all students.",
+    link: "https://www.instagram.com/mipueblounc/" 
+  },
+],
+"Clemson": [
+  { 
+    id: 1, 
+    name: "Alpfa", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
+  { 
+    id: 2, 
+    name: "SHPE", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
+],
 };
+
+const getClubsForCollege = () => {
+  const college = currentUser?.college || "UNC"; // Default to UNC if no college
+  return collegeClubs[college] || collegeClubs["UNC"]; // Fallback to UNC
+};
+
 
 const initialPosts = [
   { id: 1, content: "0 code hackathon", school: "Kenan Flagler" },
@@ -24,11 +79,34 @@ const initialPeopleToNetwork = [
 ];
 
 export default function HomePage() {
+  const [currentUser, setCurrentUser] = useState(null);
   const [peopleToNetwork, setPeopleToNetwork] = useState(initialPeopleToNetwork);
   const [activeTab, setActiveTab] = useState("feed");
   const [filter, setFilter] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Load user data from localStorage when component mounts
+    const userData = JSON.parse(localStorage.getItem('currentUser'));
+    setCurrentUser(userData);
+    
+    // Optional: Listen for storage events to update if localStorage changes in another tab
+    const handleStorageChange = (e) => {
+      if (e.key === 'currentUser') {
+        setCurrentUser(JSON.parse(e.newValue));
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  const userProfile = {
+    name: currentUser?.username || "John Doe",
+    bio: `${currentUser?.grade || "Student"} at ${currentUser?.college || "Unknown College"} studying ${currentUser?.major || "Unknown Major"}`,
+    profilePic: "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg",
+  };
 
   const handleFollowToggle = (id) => {
     const updatedPeople = peopleToNetwork.map((person) =>
@@ -38,7 +116,7 @@ export default function HomePage() {
   };
 
   const handleChatClick = () => {
-    navigate("/Privatechat");
+    navigate("/Chatbot");
   };
 
   const filteredPosts = initialPosts.filter((post) =>
@@ -64,10 +142,10 @@ export default function HomePage() {
           People to Network With
         </button>
         <button
-          className={`tab ${activeTab === "mynetwork" ? "active" : ""}`}
-          onClick={() => setActiveTab("mynetwork")}
+          className={`tab ${activeTab === "latino-clubs" ? "active" : ""}`}
+          onClick={() => setActiveTab("latino-clubs")}
         >
-          My Network
+          Latino Clubs
         </button>
       </div>
 
@@ -119,7 +197,7 @@ export default function HomePage() {
           </div>
         )}
 
-        {activeTab === "mynetwork" && (
+      {activeTab === "mynetwork" && (
           <div className="people-to-network">
             <h2>My Network</h2>
             {peopleToNetwork
@@ -138,7 +216,28 @@ export default function HomePage() {
               ))}
           </div>
         )}
-      </div>
+      {activeTab === "latino-clubs" && (
+        <div className="latino-clubs">
+          <h2>{currentUser?.college || "UNC"} Latino Clubs & Organizations</h2>
+          <div className="clubs-container">
+            {getClubsForCollege().map((club) => (
+              <div key={club.id} className="club-card">
+                <h3>{club.name}</h3>
+                <p>{club.description}</p>
+                <a 
+                  href={club.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="club-link"
+                >
+                  Visit Instagram
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
 
       {/* Profile Section */}
       <div className="profile">
