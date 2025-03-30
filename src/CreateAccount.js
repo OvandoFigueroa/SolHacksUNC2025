@@ -33,24 +33,27 @@ class CreateAccount extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = async (event) => {
     event.preventDefault();
     if (this.validate()) {
-      console.log(this.state);
-      alert("Account created successfully!");
-      this.props.navigate('/Home'); // Navigation added here
-      this.setState({
-        input: {
-          college: "",
-          grade: "",
-          major: "",
-          username: "",
-          password: "",
-          confirmPassword: ""
+        try {
+            const response = await fetch("http://localhost:5001/api/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(this.state.input)
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+
+            alert(data.message);
+            this.props.navigate('/Home');
+        } catch (error) {
+            alert(error.message);
         }
-      });
     }
-  }
+  };
+
   validate() {
     const { input } = this.state;
     const errors = {};

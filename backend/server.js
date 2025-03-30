@@ -46,25 +46,28 @@ const db = new sqlite3.Database('./users.db', (err) => {
   );
 
 // Register Route
-app.post('/register', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
+  console.log("Signup request received:", req.body); // Debugging
   const { username, password } = req.body;
-
-  // Simple validation
+  
   if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required' });
+      return res.status(400).json({ error: "Missing required fields" });
   }
 
-  // Hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  // Insert user into database
-  db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], function (err) {
-    if (err) {
-      return res.status(500).json({ message: 'Failed to register user', error: err.message });
-    }
-    res.status(201).json({ message: 'Registration successful', userId: this.lastID });
-  });
+  try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], function (err) {
+          if (err) {
+              return res.status(500).json({ error: "Database error" });
+          }
+          res.json({ message: "Account created successfully!" });
+      });
+  } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+  }
 });
+
+
 
 // Login Route
 app.post('/login', (req, res) => {
