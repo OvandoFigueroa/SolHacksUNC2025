@@ -213,3 +213,93 @@ p {
 .chat-btn:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
+/* Latino Clubs Section */
+.latino-clubs {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1rem;
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-right: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+}
+
+.latino-clubs h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ff9800;
+}
+
+.clubs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.club-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.club-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.club-card h3 {
+  color: #333;
+  margin-bottom: 0.1rem;
+  font-size: 1.24rem;
+}
+
+.club-card p {
+  color: #666;
+  margin-bottom: 1.25rem;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.club-link {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #ff9800; /* Matching your active tab color */
+  color: white;
+  text-decoration: none;
+  border-radius: .5px;
+  font-weight: 10;
+  transition: all 0.3s ease;
+  border: 0.5px solid transparent;
+}
+
+.club-link:hover {
+  background-color: #e68a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.club-link:active {
+  transform: translateY(0);
+}
+
+/* Active tab styling for Latino Clubs */
+.tab[data-tab="latino-clubs"].active {
+  background-color: #ff9800;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 300px) {
+  .clubs-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .club-card {
+    padding: 1rem;
+  }
+}

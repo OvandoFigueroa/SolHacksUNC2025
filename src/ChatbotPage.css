@@ -24,7 +24,7 @@
   
   .chatbot-header {
     padding: 15px 20px;
-    background: #724ae8;
+    background: #ff9800;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -63,7 +63,7 @@
   }
   
   .outgoing {
-    background: #724ae8;
+    background: #ff9800;
     color: white;
     align-self: flex-end;
   }
@@ -95,7 +95,7 @@
   }
   
   #send-btn {
-    background: #724ae8;
+    background: #ff9800; 
     color: white;
     border: none;
     border-radius: 8px;
