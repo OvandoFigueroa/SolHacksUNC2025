@@ -55,14 +55,20 @@ const collegeClubs = {
     description: "Clemson's Latinx student organization...",
     link: "https://example.com/clemson-lsa" 
   },
+  { 
+    id: 3, 
+    name: "Latinos Unidos", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
+  { 
+    id: 4, 
+    name: "Association of Latino Professionals for America", 
+    description: "Clemson's Latinx student organization...",
+    link: "https://example.com/clemson-lsa" 
+  },
 ],
 };
-
-const getClubsForCollege = () => {
-  const college = currentUser?.college || "UNC"; // Default to UNC if no college
-  return collegeClubs[college] || collegeClubs["UNC"]; // Fallback to UNC
-};
-
 
 const initialPosts = [
   { id: 1, content: "0 code hackathon", school: "Kenan Flagler" },
@@ -86,6 +92,12 @@ export default function HomePage() {
 
   const navigate = useNavigate();
 
+  const getClubsForCollege = () => {
+    const college = currentUser?.college || "UNC"; // Default to UNC if no college
+    return collegeClubs[college] || collegeClubs["UNC"]; // Fallback to UNC
+  };
+  
+
   useEffect(() => {
     // Load user data from localStorage when component mounts
     const userData = JSON.parse(localStorage.getItem('currentUser'));
@@ -97,6 +109,7 @@ export default function HomePage() {
         setCurrentUser(JSON.parse(e.newValue));
       }
     };
+    
     
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
